@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const getPhoto = () => {
-  return axios
-    .get("https://picsum.photos/v2/list?page=2&limit=8")
-    .then(function (response) {
-      //   console.log(response.data);
+const getPhoto = async () => {
+  try {
+    try {
+      const response = await axios
+        .get("https://picsum.photos/v2/list?page=2&limit=8");
       return response.data;
-    })
-    .catch(function (error) {
+    } catch (error) {
       console.log(error);
-    })
-    .finally(function () {});
+    }
+  } finally { }
 };
 
 const Photos = () => {
