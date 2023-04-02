@@ -4,7 +4,7 @@ const CardTailwin = (props) => {
   return (
     <div className="relative">
         <div className="w-full rounded-lg h-[400px]">
-          <img className="block w-full h-full object-cover rounded-lg"
+          <img className="block w-full h-full object-cover rounded-lg "
             src="https://cdn.dribbble.com/users/2400293/screenshots/16527147/media/f079dc5596a5fb770016c4ea506cd77b.png?compress=1&resize=1600x1200"
             alt=""
           />
