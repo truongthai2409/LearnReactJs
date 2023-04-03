@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// Bai tap ve Fetching data 
+
 const getPhoto = async () => {
   try {
     try {
