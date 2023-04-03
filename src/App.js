@@ -1,4 +1,4 @@
-import HackerNew from "./Components/News/HackerNew";
+import HackerNewReducer from "./Components/News/HackerNew";
 // import React from "react";
 // import "./App.css";
 import "./index.scss";
@@ -7,7 +7,7 @@ function App() {
   return (
     <div>
     {/* <YoutubeList></YoutubeList> */}
-      <HackerNew></HackerNew>
+      <HackerNewReducer></HackerNewReducer>
     </div>
   );
 }

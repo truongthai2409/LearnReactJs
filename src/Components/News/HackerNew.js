@@ -1,26 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+// import lodash from "lodash";
 
 const HackerNew = () => {
   const [hit, setHit] = useState([]);
-  const fectchData = async () => {
+  const [query, setQuery] = useState(["react"]);
+  const [loading, setLoading] = useState(true);
+  const [URL, setURL] = useState("https://hn.algolia.com/api/v1/search?query=''");
+  const fetchData = useRef({});
+  fetchData.current = async () => {
     try {
+      setLoading(true);
+      //lam loading trang web
       const response = await axios.get(
-        "https://hn.algolia.com/api/v1/search?query=react"
+        `https://hn.algolia.com/api/v1/search?query=${query}`
+        // phu thuoc state nen dung useRef
       );
-      console.log(response);
       setHit(response.data?.hits || []);
-    } catch (error) { 
+      setLoading(false);
+    } catch (error) {
       console.log(error);
     }
   };
-  console.log("HiT: ", hit)
-  React.useEffect(() => {
-    fectchData();
-  }, []);
-  return <div>
-    {hit.length > 0 && hit.map((item, index) => <h3 key={item.title}> {item.title}</h3>)}
-  </div>;
+  console.log("HiT: ", hit);
+    useEffect(() => {
+      fetchData.current();
+    }, [URL]);
+  //   const handleUpdateEvent = lodash.debounce((e) => {
+  //     setQuery(e.target.value);
+  //   }, 500);
+
+  return (
+    <div className="bg-white mx-auto mt-5 p-5 rounded-lg shadow-md w-2/4 transition-all focus:border-blue-600">
+      <div className="flex mb-5 gap-x-5">
+        <input
+          type="text"
+          className="border border-green-600 text-black block w-full p-5"
+          placeholder="Search ..."
+          defaultValuet={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
+          //   onChange={handleUpdateEvent}
+        />
+        <button  onClick={() => setURL(`https://hn.algolia.com/api/v1/search?query=${query}`)}
+        className="bg-[#3333] text-white font-semibold p-5 rounded-md">
+          Submit
+        </button>
+      </div>
+      {loading && (
+        <div
+          className="loading w-8 h-8 rounded-full border-green-600 border-4 
+        border-r-4 border-r-transparent animate-spin mx-auto my-10"
+        ></div>
+      )}
+      <div className="flex flex-wrap gap-5">
+        {hit.length > 0 &&
+          hit.map((item, index) => (
+            <div>
+              <h3
+                className="p-3 bg-gray-100 rounded-md text-blue-500"
+                key={item.title}
+              >
+                {" "}
+                {item.title}
+              </h3>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
 };
 
 export default HackerNew;
